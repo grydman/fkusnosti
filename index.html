@@ -9,16 +9,18 @@
 
 <style>
 :root {
-  --bg: #f5f7fb;
+  --bg: #f6f8fb;
   --text: #111;
-  --card: #fff;
-  --accent: #6c63ff;
+  --card: #ffffff;
+  --accent: #6366f1;
+  --muted: #6b7280;
 }
 
 body.dark {
   --bg: #0f1115;
-  --text: #fff;
+  --text: #ffffff;
   --card: #1a1d24;
+  --muted: #9ca3af;
 }
 
 * {
@@ -28,13 +30,17 @@ body.dark {
   font-family: 'Inter', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
   transition: 0.3s;
 }
 
-/* SCROLLBAR */
+/* SCROLL */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -47,15 +53,27 @@ body {
 header {
   position: sticky;
   top: 0;
+  z-index: 100;
   backdrop-filter: blur(10px);
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.7);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+body.dark header {
+  background: rgba(20,20,25,0.7);
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 16px;
+}
+
+.header-inner {
   display: flex;
   justify-content: space-between;
-  padding: 15px 20px;
-  z-index: 10;
-}
-body.dark header {
-  background: rgba(20,20,25,0.6);
+  align-items: center;
+  height: 60px;
 }
 
 .logo {
@@ -64,13 +82,18 @@ body.dark header {
 
 nav {
   display: flex;
-  gap: 20px;
+  gap: 24px;
 }
 
 nav a {
   text-decoration: none;
   color: var(--text);
   font-size: 14px;
+  opacity: 0.8;
+}
+
+nav a:hover {
+  opacity: 1;
 }
 
 /* BURGER */
@@ -82,82 +105,100 @@ nav a {
 
 /* HERO */
 .hero {
-  padding: 60px 20px;
+  padding: 40px 0 20px;
   text-align: center;
 }
 
 .hero h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 26px;
+  margin-bottom: 8px;
 }
 
 .hero p {
-  opacity: 0.7;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 /* SECTIONS */
 .section {
-  padding: 30px 20px;
+  padding: 25px 0;
 }
 
 .section h2 {
-  margin-bottom: 20px;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
-/* CARDS */
+/* GRID */
 .grid {
   display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
 }
 
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* CARD */
 .card {
   background: var(--card);
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 16px;
+  padding: 12px;
   text-align: center;
-  transition: 0.3s;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: 0.25s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
 }
 
 .card img {
   width: 100%;
-  height: 120px;
+  height: 110px;
   object-fit: contain;
 }
 
 .card h3 {
-  font-size: 14px;
-  margin: 5px 0;
+  font-size: 13px;
+  margin: 6px 0;
 }
 
 .card p {
-  font-size: 13px;
-  opacity: 0.7;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 /* FOOTER */
 footer {
   text-align: center;
-  padding: 20px;
-  opacity: 0.6;
+  padding: 30px 0;
+  font-size: 13px;
+  color: var(--muted);
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
+/* MOBILE MENU */
+@media (max-width: 700px) {
   nav {
     position: absolute;
     top: 60px;
-    right: 20px;
+    right: 16px;
     background: var(--card);
     flex-direction: column;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     display: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   }
 
   nav.active {
@@ -174,27 +215,29 @@ footer {
 <body>
 
 <header>
-  <div class="logo">⚡ Вкусно?</div>
+  <div class="container header-inner">
+    <div class="logo">⚡ Вкусно?</div>
 
-  <nav id="menu">
-    <a href="#energy">Энергетики</a>
-    <a href="#icecream">Мороженое</a>
-    <a href="#other">Другое</a>
-  </nav>
+    <nav id="menu">
+      <a href="#energy">Энергетики</a>
+      <a href="#icecream">Мороженое</a>
+      <a href="#other">Другое</a>
+    </nav>
 
-  <div>
-    <span class="burger" onclick="toggleMenu()">☰</span>
-    <button onclick="toggleTheme()">🌙</button>
+    <div>
+      <span class="burger" onclick="toggleMenu()">☰</span>
+      <button onclick="toggleTheme()">🌙</button>
+    </div>
   </div>
 </header>
 
-<section class="hero">
+<section class="hero container">
   <h1>МАМ, КУПИ</h1>
   <p>ТО, ЧТО ТЫ УЖЕ ПОКУПАЛА</p>
 </section>
 
 <!-- ЭНЕРГЕТИКИ -->
-<section class="section" id="energy">
+<section class="section container" id="energy">
   <h2>Энергетики</h2>
   <div class="grid">
 
@@ -233,7 +276,7 @@ footer {
 </section>
 
 <!-- МОРОЖЕНОЕ -->
-<section class="section" id="icecream">
+<section class="section container" id="icecream">
   <h2>Мороженое</h2>
   <div class="grid">
 
@@ -247,7 +290,7 @@ footer {
 </section>
 
 <!-- ДРУГОЕ -->
-<section class="section" id="other">
+<section class="section container" id="other">
   <h2>Другое</h2>
   <div class="grid">
 
