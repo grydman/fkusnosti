@@ -40,15 +40,46 @@ body {
   transition: 0.3s;
 }
 
-/* SCROLL */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 10px;
+/* Плавный скролл */
+html {
+  scroll-behavior: smooth;
 }
 
+/* Для секций */
+.section {
+  position: relative;
+}
+
+/* Фикс заголовка категории */
+.section h2 {
+  position: sticky;
+  top: 60px; /* высота header */
+  background: var(--bg);
+  z-index: 5;
+  padding: 8px 0;
+}
+
+/* 📱 МОБИЛЬНАЯ версия */
+@media (max-width: 600px) {
+
+  .grid {
+    max-height: 360px; /* ≈ 4 карточки */
+    overflow-y: auto;
+    padding-right: 5px;
+    scroll-behavior: smooth;
+  }
+
+  /* плавность прокрутки */
+  .grid::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .grid::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+  }
+
+}
 /* HEADER */
 header {
   position: sticky;
