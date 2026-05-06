@@ -40,46 +40,6 @@ body {
   transition: 0.3s;
 }
 
-/* Плавный скролл */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Для секций */
-.section {
-  position: relative;
-}
-
-/* Фикс заголовка категории */
-.section h2 {
-  position: sticky;
-  top: 60px; /* высота header */
-  background: var(--bg);
-  z-index: 5;
-  padding: 8px 0;
-}
-
-/* 📱 МОБИЛЬНАЯ версия */
-@media (max-width: 600px) {
-
-  .grid {
-    max-height: 360px; /* ≈ 4 карточки */
-    overflow-y: auto;
-    padding-right: 5px;
-    scroll-behavior: smooth;
-  }
-
-  /* плавность прокрутки */
-  .grid::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .grid::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 10px;
-  }
-
-}
 /* HEADER */
 header {
   position: sticky;
@@ -127,7 +87,6 @@ nav a:hover {
   opacity: 1;
 }
 
-/* BURGER */
 .burger {
   display: none;
   font-size: 22px;
@@ -150,7 +109,7 @@ nav a:hover {
   font-size: 14px;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section {
   padding: 25px 0;
 }
@@ -158,6 +117,12 @@ nav a:hover {
 .section h2 {
   font-size: 18px;
   margin-bottom: 15px;
+
+  position: sticky;
+  top: 60px;
+  background: var(--bg);
+  z-index: 10;
+  padding: 8px 0;
 }
 
 /* GRID */
@@ -165,18 +130,6 @@ nav a:hover {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(2, 1fr);
-}
-
-@media (min-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 
 /* CARD */
@@ -187,6 +140,10 @@ nav a:hover {
   text-align: center;
   transition: 0.25s;
   box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  height: 150px; /* важно для фиксированной прокрутки */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .card:hover {
@@ -196,7 +153,7 @@ nav a:hover {
 
 .card img {
   width: 100%;
-  height: 110px;
+  height: 80px;
   object-fit: contain;
 }
 
@@ -208,6 +165,42 @@ nav a:hover {
 .card p {
   font-size: 12px;
   color: var(--muted);
+}
+
+/* MOBILE: показываем только 4 товара */
+@media (max-width: 600px) {
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    max-height: calc(4 * 150px + 3 * 14px);
+    overflow-y: auto;
+
+    scroll-behavior: smooth;
+    padding-right: 6px;
+  }
+
+  .grid::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .grid::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+  }
+}
+
+/* DESKTOP GRID */
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* FOOTER */
@@ -229,7 +222,6 @@ footer {
     padding: 12px;
     border-radius: 12px;
     display: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   }
 
   nav.active {
@@ -267,12 +259,10 @@ footer {
   <p>ТО, ЧТО ТЫ УЖЕ ПОКУПАЛА</p>
 </section>
 
-<!-- ЭНЕРГЕТИКИ -->
 <section class="section container" id="energy">
   <h2>Энергетики</h2>
   <div class="grid">
 
-    <!-- ПРИМЕР ТОВАРА -->
     <div class="card">
       <img src="images/energy/монстр.jpg">
       <h3>Monster</h3>
@@ -293,44 +283,38 @@ footer {
 
     <div class="card">
       <img src="images/energy/литвинблюбери.jpg">
-      <h3>LIT ENERGY BLUEBERRY</h3>
+      <h3>LIT ENERGY</h3>
       <p>вкусно 😊</p>
     </div>
 
     <div class="card">
       <img src="images/energy/адриналинфу.jpg">
-      <h3>LIT ENERGY BLUEBERRY</h3>
+      <h3>Adrenaline</h3>
       <p>невкусно 😐</p>
     </div>
 
   </div>
 </section>
 
-<!-- МОРОЖЕНОЕ -->
 <section class="section container" id="icecream">
   <h2>Мороженое</h2>
   <div class="grid">
-
     <div class="card">
       <img src="images/icecream/1.jpg">
       <h3>Пломбир</h3>
       <p>вкусно 😊</p>
     </div>
-
   </div>
 </section>
 
-<!-- ДРУГОЕ -->
 <section class="section container" id="other">
   <h2>Другое</h2>
   <div class="grid">
-
     <div class="card">
       <img src="images/other/1.jpg">
       <h3>Чипсы</h3>
       <p>средне 😐</p>
     </div>
-
   </div>
 </section>
 
